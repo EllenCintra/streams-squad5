@@ -14,4 +14,4 @@ Ellen Emanuela Cintra Monteiro
 
 Lucas Hideki Kubo
 
-Thiago Feliz Silva
+Thiago Felix Silva
