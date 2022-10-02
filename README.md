@@ -1,4 +1,4 @@
-# Exercício da aula de Streams com a Let's Code - Itaú
+# Exercício da aula de Streams com a Let's Code
 
 
 Pythonzeiros - squad 05:
