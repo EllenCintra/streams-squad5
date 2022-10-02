@@ -1,4 +1,4 @@
-# Projeto de exercício referente a aula de Streams com a Let's Code
+# Exercício da aula de Streams com a Let's Code - Itaú
 
 
 Pythonzeiros - squad 05:
