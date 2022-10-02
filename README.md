@@ -1,7 +1,7 @@
 # Projeto de exercício referente a aula de Streams com a Let's Code
 
 
-# Pythonzeiros - squad 05:
+* Pythonzeiros - squad 05:
 
 Ana Maria Pessoa
 Ary Sa Ribeiro
