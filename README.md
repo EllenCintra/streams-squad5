@@ -4,8 +4,13 @@
 * Pythonzeiros - squad 05:
 
 Ana Maria Pessoa
+
 Ary Sa Ribeiro
+
 Derik Galoni Fernandes
+
 Ellen Emanuela Cintra Monteiro
+
 Lucas Hideki Kubo
+
 Thiago Feliz Silva
