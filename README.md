@@ -1,16 +1,17 @@
 # streams-squad5
-* Projeto de exercício referente a aula de Streams com a Let's Code
+Projeto de exercício referente a aula de Streams com a Let's Code
 
-Pythonzeiros - squad 05:
 
-  Ana Maria Pessoa
+# Pythonzeiros - squad 05:
 
-  Ary Sa Ribeiro
+ *Ana Maria Pessoa
 
-  Derik Galoni Fernandes
+  *Ary Sa Ribeiro
 
-  Ellen Emanuela Cintra Monteiro
+  *Derik Galoni Fernandes
 
-  Lucas Hideki Kubo
+  *Ellen Emanuela Cintra Monteiro
 
-  Thiago Feliz Silva
+  *Lucas Hideki Kubo
+
+  *Thiago Feliz Silva
