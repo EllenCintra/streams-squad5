@@ -1,4 +1,4 @@
-package br.com.letsCode.modelo;
+package br.com.letsCode.model;
 
 import br.com.letsCode.enums.Geracao;
 import br.com.letsCode.enums.Signo;
