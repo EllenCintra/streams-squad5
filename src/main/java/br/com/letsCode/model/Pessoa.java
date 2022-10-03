@@ -21,16 +21,28 @@ public class Pessoa {
 	@GeneratedValue
 	@Type(type="org.hibernate.type.UUIDCharType")
 	private UUID id;
-	public String nome;
-	public String cidadeNascimento;
-	public LocalDate dataNascimento;
-	@Enumerated(EnumType.STRING)
-	public Signo signo;
-	public Integer idade;
-	@Enumerated(EnumType.STRING)
-	public Geracao geracao;
 
-	public static Signo verificarSigno(MonthDay aniversario) {
+	private String nome;
+
+	private String cidadeNascimento;
+
+	private LocalDate dataNascimento;
+
+	@Enumerated(EnumType.STRING)
+	private Signo signo;
+
+	private Integer idade;
+
+	@Enumerated(EnumType.STRING)
+	private Geracao geracao;
+
+	public Pessoa (String nome, String cidadeNascimento, LocalDate dataNascimento) {
+		this.nome = nome;
+		this.cidadeNascimento = cidadeNascimento;
+		this.dataNascimento = dataNascimento;
+	}
+
+	public Signo verificarSigno(MonthDay aniversario) {
 		MonthDay leaoComecaEm = MonthDay.of(7,22);
 		MonthDay leaoTerminaEm = MonthDay.of(8,23);
 
@@ -59,7 +71,7 @@ public class Pessoa {
 		return !(dataParaVerificar.isBefore(dataInicio) || dataParaVerificar.isAfter(dataFim)) ;
 	}
 
-	public static Geracao definirGeracao(Year anoDeNascimento) {
+	public Geracao definirGeracao(Year anoDeNascimento) {
 		Year boomerInicio = Year.of(1940);
 		Year boomerFim = Year.of(1960);
 
@@ -87,8 +99,8 @@ public class Pessoa {
 		return !(anoParaVerificar.isBefore(anoInicio) || anoParaVerificar.isAfter(anoFim));
 	}
 
-	public static String calcularIdade(LocalDate dataNascimento){
-		return Period.between(LocalDate.now(), dataNascimento).toString().substring(2);
+	public Integer calcularIdade(LocalDate dataNascimento){
+		return Period.between(dataNascimento, LocalDate.now()).getYears();
 	}
 
 }
