@@ -52,6 +52,9 @@ public class Pessoa {
 		MonthDay aquarioComecaEm = MonthDay.of(01,21);
 		MonthDay aquarioTerminaEm = MonthDay.of(02,19);
 
+		MonthDay cancerComecaEm = MonthDay.of(06,22);
+		MonthDay cancerTerminaEm = MonthDay.of(07,22);
+
 		MonthDay escorpiaoComecaEm = MonthDay.of(10,23);
 		MonthDay escorpiaoTerminaEm = MonthDay.of(11,21);
 
