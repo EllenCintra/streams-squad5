@@ -30,20 +30,30 @@ public class Pessoa {
 	@Enumerated(EnumType.STRING)
 	public Geracao geracao;
 
-	public static String verificarSigno(MonthDay aniversario) {
+	public static Signo verificarSigno(MonthDay aniversario) {
 		MonthDay leaoComecaEm = MonthDay.of(7,22);
 		MonthDay leaoTerminaEm = MonthDay.of(8,23);
 
 		MonthDay sagitarioComecaEm = MonthDay.of(11,21);
 		MonthDay sagitarioTerminaEm = MonthDay.of(12,22);
 
-		if (verificarSeEstaEntreDatas(aniversario, leaoComecaEm, leaoTerminaEm)) return "Leão";
+		MonthDay aquarioComecaEm = MonthDay.of(01,21);
+		MonthDay aquarioTerminaEm = MonthDay.of(02,19);
 
-		if (verificarSeEstaEntreDatas(aniversario, sagitarioComecaEm, sagitarioTerminaEm)) return "Sagitário";
+		MonthDay escorpiaoComecaEm = MonthDay.of(10,23);
+		MonthDay escorpiaoTerminaEm = MonthDay.of(11,21);
 
-		return "Ainda não foi cadastrado um signo para a data informada";
+		if (verificarSeEstaEntreDatas(aniversario, leaoComecaEm, leaoTerminaEm)) return Signo.Leão;
+
+		if (verificarSeEstaEntreDatas(aniversario, sagitarioComecaEm, sagitarioTerminaEm)) return Signo.Sagitário;
+
+		if (verificarSeEstaEntreDatas(aniversario, aquarioComecaEm, aquarioTerminaEm)) return Signo.Aquário;
+
+		if (verificarSeEstaEntreDatas(aniversario, escorpiaoComecaEm, escorpiaoTerminaEm)) return Signo.Escorpião;
+
+
+		throw new RuntimeException("Ainda não foi cadastrado um signo para a data informada");
 	}
-
 
 	private static boolean verificarSeEstaEntreDatas(MonthDay dataParaVerificar, MonthDay dataInicio, MonthDay dataFim) {
 		return !(dataParaVerificar.isBefore(dataInicio) || dataParaVerificar.isAfter(dataFim)) ;
@@ -70,7 +80,7 @@ public class Pessoa {
 
 		if (verificarSeEstaEntreAnos(anoDeNascimento, zInicio, zFim)) return Geracao.Z;
 
-		throw new RuntimeException();
+		throw new RuntimeException("Não foi encontrada uma geração para o ano informado");
 	}
 
 	private static boolean verificarSeEstaEntreAnos(Year anoParaVerificar, Year anoInicio, Year anoFim) {
@@ -80,6 +90,5 @@ public class Pessoa {
 	public static String calcularIdade(LocalDate dataNascimento){
 		return Period.between(LocalDate.now(), dataNascimento).toString().substring(2);
 	}
-
 
 }
