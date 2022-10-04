@@ -4,6 +4,7 @@ import br.com.letsCode.dto.PessoaProxCopaResponse;
 import br.com.letsCode.dto.PessoaRequest;
 import br.com.letsCode.dto.PessoaResponse;
 import br.com.letsCode.enums.Geracao;
+import br.com.letsCode.enums.Signo;
 import br.com.letsCode.model.Pessoa;
 import br.com.letsCode.repository.PessoaRepository;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +33,7 @@ public class PessoaService {
 
         PessoaResponse response = new PessoaResponse();
 
+        response.setPessoasPorSignoEIdade(buscarPorSignoEIdade(pessoas, Signo.Sagitário, 20));
         response.setMaioresDe18(buscarMaiores18(pessoas));
         response.setPessoasDaGeracao(buscarPorGeracao(pessoas, Geracao.Z));
         response.setPessoaMaisNova(buscarMaisNova(pessoas));
@@ -41,6 +43,18 @@ public class PessoaService {
         response.setIdadePessoasProxCopa(calcularIdadeProxCopa(pessoas));
 
         return response;
+    }
+
+    public List<Pessoa> buscarPorSignoEIdade (List<Pessoa> pessoas, Signo signo, int idade) {
+        List<Pessoa> pessoasEncontradas = new ArrayList<>();
+
+        pessoas.forEach(pessoa -> {
+            if (pessoa.getSigno() == signo && pessoa.getIdade() > idade) {
+                pessoasEncontradas.add(pessoa);
+            }
+        });
+
+        return pessoasEncontradas;
     }
 
     public List<Pessoa> buscarMaiores18 (List<Pessoa> pessoas) {

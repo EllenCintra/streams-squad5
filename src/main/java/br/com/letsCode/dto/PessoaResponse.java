@@ -9,6 +9,8 @@ import java.util.List;
 @Getter
 @Setter
 public class PessoaResponse {
+    private List<Pessoa> pessoasPorSignoEIdade;
+
     private List<Pessoa> maioresDe18;
 
     private List<Pessoa> pessoasDaGeracao;
