@@ -32,10 +32,10 @@ public class PessoaService {
         PessoaResponse response = new PessoaResponse();
 
         response.setMaioresDe18(buscarMaiores18(pessoas));
-        response.setPessoasGeracao(buscarPorGeracao(pessoas, Geracao.Z));
+        response.setPessoasDaGeracao(buscarPorGeracao(pessoas, Geracao.Z));
         response.setMediaIdades(calcularMediaIdades(pessoas));
         response.setSomaIdades(calcularSomaIdades(pessoas));
-        response.setPessoasProxCopa(calcularIdadeProxCopa(pessoas));
+        response.setIdadePessoasProxCopa(calcularIdadeProxCopa(pessoas));
 
         return response;
     }
