@@ -3,7 +3,7 @@ package br.com.letsCode.service;
 import br.com.letsCode.dto.ObterListasPessoasRequest;
 import br.com.letsCode.dto.PessoaProxCopaResponse;
 import br.com.letsCode.dto.CadastrarPessoaRequest;
-import br.com.letsCode.dto.PessoaResponse;
+import br.com.letsCode.dto.ObterListasPessoasResponse;
 import br.com.letsCode.enums.Geracao;
 import br.com.letsCode.enums.Signo;
 import br.com.letsCode.model.Pessoa;
@@ -29,10 +29,10 @@ public class PessoaService {
         repository.save(pessoa);
     }
 
-    public PessoaResponse exibirInfos (ObterListasPessoasRequest request) {
+    public ObterListasPessoasResponse exibirInfos (ObterListasPessoasRequest request) {
         List<Pessoa> pessoas = repository.findAll();
 
-        PessoaResponse response = new PessoaResponse();
+        ObterListasPessoasResponse response = new ObterListasPessoasResponse();
 
         response.setPessoasPorSignoEIdade(buscarPorSignoEIdade(pessoas, request.getSigno(), request.getIdade()));
         response.setMaioresDe18(buscarMaiores18(pessoas));
