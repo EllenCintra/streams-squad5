@@ -52,14 +52,13 @@ public class PessoaService {
     }
 
     public List<PessoaProxCopaResponse> calcularIdadeProxCopa (List<Pessoa> pessoas) {
+        LocalDate dataProxCopa =  LocalDate.of(2026, 06, 8);
+
         List<PessoaProxCopaResponse> pessoasProxCopa = new ArrayList<>();
 
         pessoas.forEach(pessoa -> {
-            int idadeProxCopa = Period.between
-                    (pessoa.getDataNascimento(), LocalDate.of(2026, 06, 8))
-                    .getYears();
-
-            pessoasProxCopa.add(new PessoaProxCopaResponse(pessoa.getNome(), idadeProxCopa)) ;
+            int idadePessoaProxCopa = Period.between(pessoa.getDataNascimento(), dataProxCopa).getYears();
+            pessoasProxCopa.add(new PessoaProxCopaResponse(pessoa.getNome(), idadePessoaProxCopa)) ;
         });
 
         return pessoasProxCopa;
