@@ -1,6 +1,7 @@
 package br.com.letsCode.controller;
 
 import br.com.letsCode.dto.PessoaRequest;
+import br.com.letsCode.dto.PessoaResponse;
 import br.com.letsCode.service.PessoaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -27,8 +28,8 @@ public class PessoaController {
     @Transactional
     @GetMapping
     public ResponseEntity<Object> exibir() {
-        service.exibirInfos();
-        return ResponseEntity.status(HttpStatus.OK).body(null);
+        PessoaResponse response = service.exibirInfos();
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
 

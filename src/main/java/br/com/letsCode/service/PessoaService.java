@@ -2,6 +2,7 @@ package br.com.letsCode.service;
 
 import br.com.letsCode.dto.PessoaProxCopaResponse;
 import br.com.letsCode.dto.PessoaRequest;
+import br.com.letsCode.dto.PessoaResponse;
 import br.com.letsCode.enums.Geracao;
 import br.com.letsCode.model.Pessoa;
 import br.com.letsCode.repository.PessoaRepository;
@@ -23,19 +24,20 @@ public class PessoaService {
     public void cadastrar (PessoaRequest request) {
         Pessoa pessoa = new Pessoa(request.getNome(), request.getCidadeNascimento(), request.getDataNascimento());
         repository.save(pessoa);
-
-        exibirInfos();
     }
 
-
-    public void exibirInfos () {
+    public PessoaResponse exibirInfos () {
         List<Pessoa> pessoas = repository.findAll();
 
-        List<Pessoa> maioresDe18 = buscarMaiores18(pessoas);
-        List<Pessoa> pessoasGeracao = buscarPorGeracao(pessoas, Geracao.Z);
-        double mediaIdades = calcularMediaIdades(pessoas);
-        int somaIdades = calcularSomaIdades(pessoas);
-        List<PessoaProxCopaResponse> pessoasProxCopaResponse = calcularIdadeProxCopa(pessoas);
+        PessoaResponse response = new PessoaResponse();
+
+        response.setMaioresDe18(buscarMaiores18(pessoas));
+        response.setPessoasGeracao(buscarPorGeracao(pessoas, Geracao.Z));
+        response.setMediaIdades(calcularMediaIdades(pessoas));
+        response.setSomaIdades(calcularSomaIdades(pessoas));
+        response.setPessoasProxCopa(calcularIdadeProxCopa(pessoas));
+
+        return response;
     }
 
     public List<Pessoa> buscarMaiores18 (List<Pessoa> pessoas) {
