@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import javax.transaction.Transactional;
 
 @RestController
 @RequestMapping("/pessoas")
@@ -18,9 +18,18 @@ public class PessoaController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public ResponseEntity<Object> cadastrar(@Valid @RequestBody PessoaRequest request) {
-        service.cadastrarPessoa(request);
+    public ResponseEntity<Object> cadastrar(@RequestBody PessoaRequest request) {
+        service.cadastrar(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(null);
     }
+
+    @ResponseStatus(HttpStatus.OK)
+    @Transactional
+    @GetMapping
+    public ResponseEntity<Object> exibir() {
+        service.exibirInfos();
+        return ResponseEntity.status(HttpStatus.OK).body(null);
+    }
+
 
 }

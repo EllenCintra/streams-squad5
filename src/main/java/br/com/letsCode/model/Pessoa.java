@@ -40,6 +40,9 @@ public class Pessoa {
 		this.nome = nome;
 		this.cidadeNascimento = cidadeNascimento;
 		this.dataNascimento = dataNascimento;
+		this.signo = verificarSigno(MonthDay.from(dataNascimento));
+		this.geracao = definirGeracao(Year.from(dataNascimento));
+		this.idade = calcularIdade(dataNascimento);
 	}
 
 	public Signo verificarSigno(MonthDay aniversario) {
@@ -55,8 +58,7 @@ public class Pessoa {
 		MonthDay cancerComecaEm = MonthDay.of(06,22);
 		MonthDay cancerTerminaEm = MonthDay.of(07,22);
 
-		MonthDay escorpiaoComecaEm = MonthDay.of(10,23);
-		MonthDay escorpiaoTerminaEm = MonthDay.of(11,21);
+		MonthDay escorpiaoComecaEm = MonthDay.of(10,23);		MonthDay escorpiaoTerminaEm = MonthDay.of(11,21);
 
 		if (verificarSeEstaEntreDatas(aniversario, leaoComecaEm, leaoTerminaEm)) return Signo.Leão;
 
@@ -66,8 +68,9 @@ public class Pessoa {
 
 		if (verificarSeEstaEntreDatas(aniversario, escorpiaoComecaEm, escorpiaoTerminaEm)) return Signo.Escorpião;
 
+		if (verificarSeEstaEntreDatas(aniversario, cancerComecaEm, cancerTerminaEm)) return Signo.Câncer;
 
-		throw new RuntimeException("Ainda não foi cadastrado um signo para a data informada");
+		return null;
 	}
 
 	private static boolean verificarSeEstaEntreDatas(MonthDay dataParaVerificar, MonthDay dataInicio, MonthDay dataFim) {
@@ -95,14 +98,14 @@ public class Pessoa {
 
 		if (verificarSeEstaEntreAnos(anoDeNascimento, zInicio, zFim)) return Geracao.Z;
 
-		throw new RuntimeException("Não foi encontrada uma geração para o ano informado");
+		return null;
 	}
 
 	private static boolean verificarSeEstaEntreAnos(Year anoParaVerificar, Year anoInicio, Year anoFim) {
 		return !(anoParaVerificar.isBefore(anoInicio) || anoParaVerificar.isAfter(anoFim));
 	}
 
-	public Integer calcularIdade(LocalDate dataNascimento){
+	private Integer calcularIdade(LocalDate dataNascimento){
 		return Period.between(dataNascimento, LocalDate.now()).getYears();
 	}
 

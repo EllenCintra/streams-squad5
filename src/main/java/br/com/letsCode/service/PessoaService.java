@@ -1,18 +1,18 @@
 package br.com.letsCode.service;
 
+import br.com.letsCode.dto.PessoaProxCopaResponse;
 import br.com.letsCode.dto.PessoaRequest;
 import br.com.letsCode.enums.Geracao;
-import br.com.letsCode.enums.Signo;
 import br.com.letsCode.model.Pessoa;
 import br.com.letsCode.repository.PessoaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.MonthDay;
-import java.time.Year;
-import java.util.Optional;
-import java.util.UUID;
+import java.time.Period;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -20,16 +20,64 @@ public class PessoaService {
 
     private final PessoaRepository repository;
 
-    public void cadastrarPessoa (PessoaRequest request) {
+    public void cadastrar (PessoaRequest request) {
         Pessoa pessoa = new Pessoa(request.getNome(), request.getCidadeNascimento(), request.getDataNascimento());
-
-        LocalDate dataNascimento = pessoa.getDataNascimento();
-
-        pessoa.setSigno(pessoa.verificarSigno(MonthDay.from(dataNascimento)));
-        pessoa.setGeracao(pessoa.definirGeracao(Year.from(dataNascimento)));
-        pessoa.setIdade(pessoa.calcularIdade(dataNascimento));
-
         repository.save(pessoa);
+
+        exibirInfos();
     }
 
+
+    public void exibirInfos () {
+        List<Pessoa> pessoas = repository.findAll();
+
+        List<Pessoa> maioresDe18 = buscarMaiores18(pessoas);
+        List<Pessoa> pessoasGeracao = buscarPorGeracao(pessoas, Geracao.Z);
+        double mediaIdades = calcularMediaIdades(pessoas);
+        int somaIdades = calcularSomaIdades(pessoas);
+        List<PessoaProxCopaResponse> pessoasProxCopaResponse = calcularIdadeProxCopa(pessoas);
+    }
+
+    public List<Pessoa> buscarMaiores18 (List<Pessoa> pessoas) {
+        List<Pessoa> maioresDeIdade = pessoas.stream()
+                .filter(p -> p.getIdade() >= 18)
+                .collect(Collectors.toList());
+        return maioresDeIdade;
+    }
+
+    public List<Pessoa> buscarPorGeracao (List<Pessoa> pessoas, Geracao geracao) {
+        return pessoas.stream()
+                .filter(p -> p.getGeracao() == geracao)
+                .collect(Collectors.toList());
+    }
+
+    public List<PessoaProxCopaResponse> calcularIdadeProxCopa (List<Pessoa> pessoas) {
+        List<PessoaProxCopaResponse> pessoasProxCopa = new ArrayList<>();
+
+        pessoas.forEach(pessoa -> {
+            int idadeProxCopa = Period.between
+                    (pessoa.getDataNascimento(), LocalDate.of(2026, 06, 8))
+                    .getYears();
+
+            pessoasProxCopa.add(new PessoaProxCopaResponse(pessoa.getNome(), idadeProxCopa)) ;
+        });
+
+        return pessoasProxCopa;
+    }
+
+    public void buscarMaisNovaEMaisVelha (List<Pessoa> pessoas) {
+
+    }
+
+    public double calcularMediaIdades (List<Pessoa> pessoas) {
+        return pessoas.stream()
+                .mapToDouble(pessoa -> pessoa.getIdade().doubleValue())
+                .average().getAsDouble();
+    }
+
+    public int calcularSomaIdades (List<Pessoa> pessoas) {
+        return pessoas.stream()
+                      .mapToInt(pessoa -> pessoa.getIdade())
+                      .sum();
+    }
 }
