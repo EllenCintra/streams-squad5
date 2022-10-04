@@ -36,11 +36,11 @@ public class PessoaService {
         response.setPessoasPorSignoEIdade(buscarPorSignoEIdade(pessoas, Signo.Sagitário, 20));
         response.setMaioresDe18(buscarMaiores18(pessoas));
         response.setPessoasDaGeracao(buscarPorGeracao(pessoas, Geracao.Z));
-        response.setPessoaMaisNova(buscarMaisNova(pessoas));
+        response.setIdadePessoasProxCopa(calcularIdadeProxCopa(pessoas));
         response.setPessoaMaisVelha(buscarMaisVelha(pessoas));
+        response.setPessoaMaisNova(buscarMaisNova(pessoas));
         response.setMediaIdades(calcularMediaIdades(pessoas));
         response.setSomaIdades(calcularSomaIdades(pessoas));
-        response.setIdadePessoasProxCopa(calcularIdadeProxCopa(pessoas));
 
         return response;
     }
