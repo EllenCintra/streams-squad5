@@ -47,15 +47,11 @@ public class PessoaService {
     }
 
     public List<Pessoa> buscarPorSignoEIdade (List<Pessoa> pessoas, Signo signo, int idade) {
-        List<Pessoa> pessoasEncontradas = new ArrayList<>();
+        List<Pessoa> pessoasPorSignoEIdade = pessoas.stream()
+                .filter(p -> p.getSigno() == signo && p.getIdade() > idade)
+                .collect(Collectors.toList());
 
-        pessoas.forEach(pessoa -> {
-            if (pessoa.getSigno() == signo && pessoa.getIdade() > idade) {
-                pessoasEncontradas.add(pessoa);
-            }
-        });
-
-        return pessoasEncontradas;
+        return pessoasPorSignoEIdade;
     }
 
     public List<Pessoa> buscarMaiores18 (List<Pessoa> pessoas) {
