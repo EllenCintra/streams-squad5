@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,6 +34,8 @@ public class PessoaService {
 
         response.setMaioresDe18(buscarMaiores18(pessoas));
         response.setPessoasDaGeracao(buscarPorGeracao(pessoas, Geracao.Z));
+        response.setPessoaMaisNova(buscarMaisNova(pessoas));
+        response.setPessoaMaisVelha(buscarMaisVelha(pessoas));
         response.setMediaIdades(calcularMediaIdades(pessoas));
         response.setSomaIdades(calcularSomaIdades(pessoas));
         response.setIdadePessoasProxCopa(calcularIdadeProxCopa(pessoas));
@@ -66,8 +69,14 @@ public class PessoaService {
         return pessoasProxCopa;
     }
 
-    public void buscarMaisNovaEMaisVelha (List<Pessoa> pessoas) {
+    Comparator<Pessoa> comparadorDeIdades = Comparator.comparing( Pessoa::getIdade);
 
+    public Pessoa buscarMaisNova (List<Pessoa> pessoas) {
+        return pessoas.stream().min(comparadorDeIdades).get();
+    }
+
+    public Pessoa buscarMaisVelha (List<Pessoa> pessoas) {
+        return pessoas.stream().max(comparadorDeIdades).get();
     }
 
     public double calcularMediaIdades (List<Pessoa> pessoas) {
