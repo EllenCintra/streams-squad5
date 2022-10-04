@@ -1,7 +1,8 @@
 package br.com.letsCode.service;
 
+import br.com.letsCode.dto.ObterListasPessoasRequest;
 import br.com.letsCode.dto.PessoaProxCopaResponse;
-import br.com.letsCode.dto.PessoaRequest;
+import br.com.letsCode.dto.CadastrarPessoaRequest;
 import br.com.letsCode.dto.PessoaResponse;
 import br.com.letsCode.enums.Geracao;
 import br.com.letsCode.enums.Signo;
@@ -23,19 +24,19 @@ public class PessoaService {
 
     private final PessoaRepository repository;
 
-    public void cadastrar (PessoaRequest request) {
+    public void cadastrar (CadastrarPessoaRequest request) {
         Pessoa pessoa = new Pessoa(request.getNome(), request.getCidadeNascimento(), request.getDataNascimento());
         repository.save(pessoa);
     }
 
-    public PessoaResponse exibirInfos () {
+    public PessoaResponse exibirInfos (ObterListasPessoasRequest request) {
         List<Pessoa> pessoas = repository.findAll();
 
         PessoaResponse response = new PessoaResponse();
 
-        response.setPessoasPorSignoEIdade(buscarPorSignoEIdade(pessoas, Signo.Sagitário, 20));
+        response.setPessoasPorSignoEIdade(buscarPorSignoEIdade(pessoas, request.getSigno(), request.getIdade()));
         response.setMaioresDe18(buscarMaiores18(pessoas));
-        response.setPessoasDaGeracao(buscarPorGeracao(pessoas, Geracao.Z));
+        response.setPessoasDaGeracao(buscarPorGeracao(pessoas, request.getGeracao()));
         response.setIdadePessoasProxCopa(calcularIdadeProxCopa(pessoas));
         response.setPessoaMaisVelha(buscarMaisVelha(pessoas));
         response.setPessoaMaisNova(buscarMaisNova(pessoas));
